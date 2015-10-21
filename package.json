@@ -1,12 +1,12 @@
 {
-  "name": "edge",
+  "name": "electron-edge",
   "author": {
-    "name": "Tomasz Janczuk <tomasz@janczuk.org>",
+    "name": "Tomasz Janczuk <tomasz@janczuk.org>, Chanwoong Kim <devk0817@gmail.com>",
     "url": "http://tomasz.janczuk.org",
     "twitter": "tjanczuk"
   },
-  "version": "4.0.1-pre",
-  "description": "Edge.js: run .NET and Node.js in-process on Windows, Mac OS, and Linux",
+  "version": "4.0.1-pre1",
+  "description": "Electron-Edge.js: run .NET and Node.js in-process in Electron",
   "tags": [
     "owin",
     "edge",
@@ -35,13 +35,13 @@
     "mocha": "1.8.1",
     "jshint": "1.1.0"
   },
-  "homepage": "https://github.com/tjanczuk/edge",
+  "homepage": "https://github.com/kexplo/electron-edge",
   "repository": {
     "type": "git",
-    "url": "git@github.com:tjanczuk/edge.git"
+    "url": "git@github.com:kexplo/electron-edge.git"
   },
   "bugs": {
-    "url": "http://github.com/tjanczuk/edge/issues"
+    "url": "http://github.com/kexplo/electron-edge/issues"
   },
   "scripts": {
     "install": "node tools/install.js",
