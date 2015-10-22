@@ -8,7 +8,7 @@ An edge connects two nodes. This edge connects Node.js and .NET. V8 and CLR/Mono
 You can script C# from a Node.js process:
 
 ```javascript
-var edge = require('edge');
+var edge = require('electron-edge');
 
 var helloWorld = edge.func(function () {/*
     async (input) => { 
@@ -172,16 +172,16 @@ Edge.js is available as a Docker image on the [tjanczuk/edgejs repository on Doc
 
 Follow setup instructions [for your platform](#what-you-need). 
 
-Install edge:
+Install electron-edge:
 
 ```
-npm install edge
+npm install electron-edge
 ```
 
 In your server.js:
 
 ```javascript
-var edge = require('edge');
+var edge = require('electron-edge');
 
 var helloWorld = edge.func(function () {/*
     async (input) => { 
@@ -209,7 +209,7 @@ Edge provides several ways to integrate C# code into a Node.js application. Rega
 Edge provides a function that accepts a reference to C# code in one of the supported representations, and returns a Node.js function which acts as a JavaScript proxy to the `Func<object,Task<object>>` .NET delegate:
 
 ```javascript
-var edge = require('edge');
+var edge = require('electron-edge');
 
 var myFunction = edge.func(...);
 ```
@@ -416,7 +416,7 @@ public class Startup
 In your Node.js code that invokes this .NET method you can display the result object that the callback method receives:
 
 ```javascript
-var edge = require('edge');
+var edge = require('electron-edge');
 
 var getPerson = edge.func(function () {/*
     using System.Threading.Tasks;
@@ -478,7 +478,7 @@ In addition to marshalling data, edge can marshal proxies to JavaScript function
 Suppose the Node.js application passes an `add` function to the .NET code as a property of an object. The function receives two numbers and returns the sum of them via the provided callback:
 
 ```javascript
-var edge = require('edge');
+var edge = require('electron-edge');
 
 var addAndMultiplyBy2 = edge.func(function () {/*
     async (dynamic input) => {
@@ -586,7 +586,7 @@ npm install edge-py
 In your server.js:
 
 ```javascript
-var edge = require('edge');
+var edge = require('electron-edge');
 
 var hello = edge.func('py', function () {/*
     def hello(input):
@@ -653,7 +653,7 @@ lambda x: hello(x)
 In your hello.js file:
 
 ```javascript
-var edge = require('edge');
+var edge = require('electron-edge');
 
 var hello = edge.func('py', 'hello.py');
 
@@ -677,7 +677,7 @@ In the examples above Python script was executing asynchronously on its own thre
 If you know your Python code is non-blocking, or if you know what you are doing, you can tell Edge.js to execute Python code on the singleton V8 thread. This will improve performance for non-blocking Python scripts embedded in a Node.js application:
 
 ```javascript
-var edge = require('edge');
+var edge = require('electron-edge');
 
 var hello = edge.func('py', {
     source: function () {/*
@@ -714,7 +714,7 @@ npm install edge-ps
 In your server.js:
 
 ```javascript
-var edge = require('edge');
+var edge = require('electron-edge');
 
 var hello = edge.func('ps', function () {/*
 "PowerShell welcomes $inputFromJS on $(Get-Date)"
@@ -744,7 +744,7 @@ What you can do in native PowerShell works in Node.js.
 Here you can reach out to IronPython from PowerShell from within Node.js on Windows. This holds true for working with JavaScript frameworks and C#.
 
 ```javascript
-var edge = require('edge');
+var edge = require('electron-edge');
 
 var helloPowerShell = edge.func('ps', function () {/*
 	"PowerShell welcomes $inputFromJS"
@@ -775,7 +775,7 @@ helloPython('Node.js', function(error, result){
 This section is coming up. In the meantime please refer to [Dave Thomas blog post](http://7sharpnine.com/posts/i-node-something/). This has been validated on Windows only. 
 
 ```javascript
-var edge = require('edge');
+var edge = require('electron-edge');
 
 var helloFs = edge.func('fs', function () {/*
     fun input -> async { 
@@ -805,7 +805,7 @@ npm install edge-lsharp
 In your server.js:
 
 ```javascript
-var edge = require('edge');
+var edge = require('electron-edge');
 var fact = edge.func('lsharp', function(){/*
 
 ;; Factorial
@@ -823,7 +823,7 @@ fact([5], function(err, answer){
 An LSharp filename can be passed in instead of the Lisp string/comment:
 
 ```js
-var edge = require('edge');
+var edge = require('electron-edge');
 var lisp = edge.func('lsharp', 'lisp-func.ls');
 
 lisp(['arg1', 'arg2'], function(err, result){
@@ -834,7 +834,7 @@ lisp(['arg1', 'arg2'], function(err, result){
 In Lisp you can specify either a function (as shown in the first example) or just return a value:
 
 ```js
-var edge = require('edge');
+var edge = require('electron-edge');
 var lisp = edge.func('lsharp', '(+ 2 3)');
 
 lisp([], function(err, answer){
@@ -869,7 +869,7 @@ set EDGE_SQL_CONNECTION_STRING=Data Source=localhost;Initial Catalog=Northwind;I
 In your server.js:
 
 ```javascript
-var edge = require('edge');
+var edge = require('electron-edge');
 
 var getTop10Products = edge.func('sql', function () {/*
     select top 10 * from Products
@@ -908,7 +908,7 @@ New Ikura
 You can construct a parameterized query once and provide parameter values on a per-call basis:
 
 ```javascript
-var edge = require('edge');
+var edge = require('electron-edge');
 
 var getProduct = edge.func('sql', function () {/*
     select * from Products 
@@ -926,7 +926,7 @@ getProduct({ myProductId: 10 }, function (error, result) {
 The four basic CRUD operations are supported. For example, here is how an update can look like:
 
 ```javascript
-var edge = require('edge');
+var edge = require('electron-edge');
 
 var updateProductName = edge.func('sql', function () {/*
     update Products
@@ -953,7 +953,7 @@ Edge.js marshals Node.js errors and exceptions to .NET as well as .NET exception
 CLR exceptions thrown in .NET code invoked from Node.js are marshalled as the `error` parameter to the Node.js callback function. Consider this example:
 
 ```javascript
-var edge = require('edge');
+var edge = require('electron-edge');
 
 var clrFunc = edge.func(function () {/*
     async (dynamic input) => {
@@ -1015,7 +1015,7 @@ System.Reflection.TargetInvocationException: Exception has been thrown by the ta
 JavaScript exceptions thrown in Node.js code invoked from .NET are wrapped in a CLR exception and cause the asynchronous `Task<object>` to complete with a failure. Errors passed by Node.js code invoked from .NET code to the callback function's `error` parameter have the same effect. Consider this example:
 
 ```javascript
-var edge = require('edge');
+var edge = require('electron-edge');
 
 var multiplyBy2 = edge.func(function () {/*
     async (dynamic input) => {
