@@ -24,7 +24,7 @@ if "%1" neq "" (
     shift
     goto :harvestVersions
 )
-if "%VERSIONS%" equ "" set VERSIONS=0.10.0
+if "%VERSIONS%" equ "" set VERSIONS=5.10.0
 pushd %SELF%\..
 for %%V in (%VERSIONS%) do call :build ia32 x86 %%V 
 for %%V in (%VERSIONS%) do call :build x64 x64 %%V 
@@ -56,7 +56,7 @@ if not exist "%GYP%" (
 
 if exist ".\src\CoreCLREmbedding\bin" rmdir /s /q ".\src\CoreCLREmbedding\bin"
 
-"%NODEEXE%" "%GYP%" configure build --target=0.36.2 --dist-url=https://atom.io/download/atom-shell --msvs_version=2013 -%FLAVOR%
+"%NODEEXE%" "%GYP%" configure build --target=0.37.6 --dist-url=https://atom.io/download/atom-shell --msvs_version=2013 -%FLAVOR%
 if %ERRORLEVEL% neq 0 (
     echo Error building edge.node %FLAVOR% for node.js %2 v%3
     exit /b -1
