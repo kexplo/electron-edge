@@ -32,6 +32,10 @@ you need to install same version of node.js and rebuild `edge.js`
 please read this issue: https://github.com/kexplo/electron-edge/issues/2
 
 
+## Requirement
+
+If you use Windows, you should be installed [VS 2015 redistributable](https://www.microsoft.com/en-US/download/details.aspx?id=48145).
+
 
 
 Edge.js: .NET and Node.js in-process [![Build Status](https://travis-ci.org/tjanczuk/edge.svg)](https://travis-ci.org/tjanczuk/edge)
