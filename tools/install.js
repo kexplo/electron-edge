@@ -71,5 +71,64 @@ if (process.platform === 'win32') {
 } 
 
 else {
-	spawn('node-gyp', ['configure', 'build'], { stdio: 'inherit' });
+	if (process.platform === 'darwin') {
+
+		// Code from electron-prebuild: https://github.com/electron/electron-rebuild
+		const possibleModuleNames = ['electron', 'electron-prebuilt', 'electron-prebuilt-compile'];
+
+		function locateElectronPrebuilt () {
+			let electronPath;
+
+			// Attempt to locate modules by path
+			let foundModule = possibleModuleNames.some((moduleName) => {
+				electronPath = path.join(__dirname, '..', '..', moduleName);
+				return fs.existsSync(electronPath);
+			});
+
+			// Return a path if we found one
+			if (foundModule) return electronPath;
+
+			// Attempt to locate modules by require
+			foundModule = possibleModuleNames.some((moduleName) => {
+				try {
+				electronPath = path.join(require.resolve(moduleName), '..');
+				} catch (e) {
+				return false;
+				}
+				return fs.existsSync(electronPath);
+			});
+
+			// Return a path if we found one
+			if (foundModule) return electronPath;
+			return null;
+		}
+
+		location = locateElectronPrebuilt();
+		version = null;
+		electronPath = null;
+		if (location != null)
+		{ 
+			// NB: We assume here that electron-prebuilt is a sibling package of ours
+			pkg = null;
+			try {
+				let pkgJson = path.join(location, 'package.json');
+
+				pkg = require(pkgJson);
+
+				version = pkg.version;
+			} catch (e) {
+				console.error("Unable to find electron-prebuilt's version number, either install it or specify an explicit version");
+			}
+		}
+		if (version !== null)
+		{
+			spawn('node-gyp', ['configure', 'build', '--target='+version, '--disturl=https://atom.io/download/atom-shell'], { stdio: 'inherit' });
+		}
+		else
+			spawn('node-gyp', ['configure', 'build'], { stdio: 'inherit' });
+   		
+	}
+	else {
+		spawn('node-gyp', ['configure', 'build'], { stdio: 'inherit' });
+	}
 }
