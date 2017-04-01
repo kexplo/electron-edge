@@ -3,7 +3,7 @@ electron-edge
 
 Run .NET and Node.js code in-process on Electron. forked from [Edge.js](https://github.com/tjanczuk/edge).
 
-It is currently compatible with Electron-v1.4.4 (until node.js v6.5.0)
+It is currently compatible with Electron-v1.6.2 (until node.js v7.4.0)
 
 The usage is same as Edge.js. just replace `require('edge')` with `require('electron-edge')`:
 
