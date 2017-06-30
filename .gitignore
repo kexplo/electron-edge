@@ -37,3 +37,5 @@ Sample105.*
 .settings/
 
 adhoc/
+lib/native/win32/ia32/*/*.dll
+lib/native/win32/x64/*/*.dll
