@@ -1,5 +1,11 @@
+
+**DO NOT USE - switch to other package**
+This project is no longer maintained. Instead you should update your project to use [Electron Edge JS](https://github.com/agracio/electron-edge-js).
+
+
 electron-edge
 =============
+
 
 Run .NET and Node.js code in-process on Electron. forked from [Edge.js](https://github.com/tjanczuk/edge).
 
